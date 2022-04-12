@@ -26,6 +26,7 @@ try:
 		dataIn += str(time.time()) + ", "
 
 		dataIn += str(random()) + ", " 
+		dataIn += str(random()) + ", "
 	
 		data.append(dataIn + "\n")
 
@@ -47,4 +48,7 @@ try:
 except KeyboardInterrupt:
 	print("--Interrupted--")
 	gp.cleanup()
-
+#prcesses error from disk being full
+except OSError:
+	print("--OSError--")
+	gp.cleanup()

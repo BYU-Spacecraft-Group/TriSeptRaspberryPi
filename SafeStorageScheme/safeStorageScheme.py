@@ -5,6 +5,7 @@ writes after a determined cycle count to avoid slowdown from writing too often
 import RPi.GPIO as gp
 import time
 from random import random
+import os
 
 gp.setmode(gp.BCM)
 
@@ -20,6 +21,7 @@ data = []
 try:
 	#main loop
 	while True:
+		print(it)
 		#collecting data
 		dataIn = "" #string to save as a line
 		
@@ -36,6 +38,8 @@ try:
 			start = time.time()
 			file = open(f"Results{ID}.csv", 'a')
 			file.writelines(data)
+			file.flush()
+			os.fsync(file.fileno())
 			file.close()
 			#clear stored values
 			data.clear()

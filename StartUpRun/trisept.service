@@ -1,0 +1,11 @@
+[Unit]
+Description=save data
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/pi
+ExecStart=/usr/bin/python3 /home/pi/ss.py
+
+[Install]
+WantedBy=multi-user.target
+

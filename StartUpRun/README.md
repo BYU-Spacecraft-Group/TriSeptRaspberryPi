@@ -1,7 +1,7 @@
 # How to add the service file:
-This will run a python script called ss.py with the path /home/pi/ss.py, saving the output files into /home/pi/
+This will run a python script called trisept.py with the path /home/pi/trisept.py, saving the output files into /home/pi/
 
-I made a script to install it automatically (run it with sudo and run it in the same directory as the file trisept.service file or it won't work)
+I made a script to install it automatically (run it with sudo and run it in the same directory as the file trisept.service file or it won't work). It also might need to be execute enabled with 'chmod u+x autoSetup.sh'
 
 But if it doesn't work do this:
 * Copy/Paste the file 'trisept.service' into /lib/systemd/system/

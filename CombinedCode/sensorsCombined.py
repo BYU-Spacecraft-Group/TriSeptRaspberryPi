@@ -59,19 +59,25 @@ bus.write_byte(0x76, 0x1E)
 
 # rtc --> sudo hwclock -r
 
+print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, ")
+
 while True:
+    dataIn = ""
     # adc ---------------------------------------------------------------------------------
     print("ADC" + "-"*50)
     values = [0]*8
     for i in range(8):
         values[i] = round(mcp.read_adc(i)) # is there a reason to round here?
     print('| {0:>4} | {1:>4} | {2:>4} | {3:>4} | {4:>4} | {5:>4} | {6:>4} | {7:>4} |'.format(*values))
-    
+    #adcvals = '| {0:>4} | {1:>4} | {2:>4} | {3:>4} | {4:>4} | {5:>4} | {6:>4} | {7:>4} |'.format(*values)
+    #dataIn += adcvals + ", "
+
     # bme280 ------------------------------------------------------------------------------
     print("BME" + "-"*50)
     print("\nTemperature: %0.1f C" % bme280.temperature + 
         "\tHumidity: %0.1f %%" % bme280.relative_humidity + 
         "\tPressure: %0.1f hPa" % bme280.pressure)
+    #dataIn += f"{bme280.temperature}, {bme280.relative_humidity}, {bme280.pressure}, "
     #print("Altitude = %0.2f meters" % bme280.altitude) why is this commented out?
 
     # gps ---------------------------------------------------------------------------------
@@ -84,7 +90,8 @@ while True:
         if not gps.has_fix:
             # Try again if we don't have a fix yet.
             print("Waiting for fix...")
-            continue
+            #dataIn += -, -, -, -, -, -, -, -, -,
+            #continue
         # We have a fix! (gps.has_fix is true)
         # Print out details about the fix like location, date, etc.
         print("=" * 40)  # Print a separator line.
@@ -115,15 +122,21 @@ while True:
             print("Horizontal dilution: {}".format(gps.horizontal_dilution))
         if gps.height_geoid is not None:
             print("Height geoid: {} meters".format(gps.height_geoid))
-
+        #dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestampe_utc.tm_sec}, "
+        #dataIn += f"{gps.latitude}, {gps.longitude}, {gps.fix_quality}, {gps.satellites}, {gps.altitude_m}, {gps.speed_knots}, "
+        #dataIn += f"{gps.track_angle_deg}, {gps.horizontal_dilution}, {gps.height_geoid}, "
     # imu ---------------------------------------------------------------------------------
+    print("imu" + "-"*50)
     print(
         "Accel X:%.2f Y:%.2f Z:%.2f ms^2 Gyro X:%.2f Y:%.2f Z:%.2f degrees/s"
         % (ism.acceleration + ism.gyro)
     )
+    #dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
 
     # mprls pressure ----------------------------------------------------------------------
+    print("mprls pressure" + "-"*50)
     print(mpr.pressure, "hPa")
+    #dataIn += f"{mpr.pressure}, "
 
     # ms5803 pressure ---------------------------------------------------------------------
     # needs to be trimed and sleeps need to be removed <-----
@@ -214,10 +227,14 @@ while True:
     print ("Pressure : %.2f mbar" %pressure)
     print ("Temperature in Celsius : %.2f C" %cTemp)
     print ("Temperature in Fahrenheit : %.2f F" %fTemp)
+    #dataIn += f"{pressure}, {cTemp}, {fTemp}, "
 
     # rtc ---------------------------------------------------------------------------------
     #  sudo hwclock -r --- why is this a terminal command - it would be better off only python
+    print("RTC" + "-"*50)
 
     time.sleep(0.01)
+
+    print(dataIn)
     
     

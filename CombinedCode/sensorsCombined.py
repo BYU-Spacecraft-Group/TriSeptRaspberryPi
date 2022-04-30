@@ -13,10 +13,10 @@ SPI_DEVICE  = 0
 mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 # bme280
-import board #also: gps, imu, mprls pressure
+import board #also: gps, imu, mprls pressure, rtc
 from adafruit_bme280 import basic as adafruit_bme280
 
-i2c = board.I2C() # also imu
+i2c = board.I2C() # also imu, rtc
 bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
 # gps
@@ -56,8 +56,10 @@ import smbus
 bus = smbus.SMBus(1)
 bus.write_byte(0x76, 0x1E)
 
-
 # rtc --> sudo hwclock -r
+import adafruit_ds3231
+rtc = adafruit_ds3231.DS3231(i2c)
+
 
 print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, ")
 
@@ -232,7 +234,10 @@ while True:
     # rtc ---------------------------------------------------------------------------------
     #  sudo hwclock -r --- why is this a terminal command - it would be better off only python
     print("RTC" + "-"*50)
+    t = rtc.datetime
+    print(f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}")
 
+    #dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
     time.sleep(0.01)
 
     print(dataIn)

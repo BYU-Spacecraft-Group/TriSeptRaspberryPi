@@ -87,11 +87,11 @@ while True:
     gps.update()
     current = time.monotonic()
 
-    if current - last_print >= 1.0:
+    if gps.has_fix: #current - last_print >= 1.0:
         last_print = current
-        if not gps.has_fix:
+        #if not gps.has_fix:
             # Try again if we don't have a fix yet.
-            print("Waiting for fix...")
+            #print("Waiting for fix...")
             #dataIn += -, -, -, -, -, -, -, -, -,
             #continue
         # We have a fix! (gps.has_fix is true)

@@ -79,7 +79,7 @@ while True:
     print("\nTemperature: %0.1f C" % bme280.temperature + 
         "\tHumidity: %0.1f %%" % bme280.relative_humidity + 
         "\tPressure: %0.1f hPa" % bme280.pressure)
-    #dataIn += f"{bme280.temperature}, {bme280.relative_humidity}, {bme280.pressure}, "
+    dataIn += f"{bme280.temperature}, {bme280.relative_humidity}, {bme280.pressure}, "
     #print("Altitude = %0.2f meters" % bme280.altitude) why is this commented out?
 
     # gps ---------------------------------------------------------------------------------
@@ -124,21 +124,24 @@ while True:
             print("Horizontal dilution: {}".format(gps.horizontal_dilution))
         if gps.height_geoid is not None:
             print("Height geoid: {} meters".format(gps.height_geoid))
-        #dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestampe_utc.tm_sec}, "
-        #dataIn += f"{gps.latitude}, {gps.longitude}, {gps.fix_quality}, {gps.satellites}, {gps.altitude_m}, {gps.speed_knots}, "
-        #dataIn += f"{gps.track_angle_deg}, {gps.horizontal_dilution}, {gps.height_geoid}, "
+        dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestampe_utc.tm_sec}, "
+        dataIn += f"{gps.latitude}, {gps.longitude}, {gps.fix_quality}, {gps.satellites}, {gps.altitude_m}, {gps.speed_knots}, "
+        dataIn += f"{gps.track_angle_deg}, {gps.horizontal_dilution}, {gps.height_geoid}, "
+    else:
+        print("Waiting for fix...")
+        dataIn += "-, -, -, -, -, -, -, -, -, -, "
     # imu ---------------------------------------------------------------------------------
     print("imu" + "-"*50)
     print(
         "Accel X:%.2f Y:%.2f Z:%.2f ms^2 Gyro X:%.2f Y:%.2f Z:%.2f degrees/s"
         % (ism.acceleration + ism.gyro)
     )
-    #dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
+    dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
 
     # mprls pressure ----------------------------------------------------------------------
     print("mprls pressure" + "-"*50)
     print(mpr.pressure, "hPa")
-    #dataIn += f"{mpr.pressure}, "
+    dataIn += f"{mpr.pressure}, "
 
     # ms5803 pressure ---------------------------------------------------------------------
     # needs to be trimed and sleeps need to be removed <-----
@@ -233,10 +236,10 @@ while True:
         print ("Pressure : %.2f mbar" %pressure)
         print ("Temperature in Celsius : %.2f C" %cTemp)
         print ("Temperature in Fahrenheit : %.2f F" %fTemp)
-        #dataIn += f"{pressure}, {cTemp}, {fTemp}, "
+        dataIn += f"{pressure}, {cTemp}, {fTemp}, "
     except OSError:
         print("OSError")
-        #dataIn += "-, -, -, "
+        dataIn += "-, -, -, "
 
     # rtc ---------------------------------------------------------------------------------
     #  sudo hwclock -r --- why is this a terminal command - it would be better off only python
@@ -244,9 +247,10 @@ while True:
     t = rtc.datetime
     print(f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}")
 
-    #dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
+    dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
     time.sleep(0.01)
 
+    print("dataIn" + "-"*50)
     print(dataIn)
     
     

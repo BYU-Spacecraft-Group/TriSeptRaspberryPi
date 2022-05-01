@@ -29,6 +29,13 @@ from adafruit_bme280 import basic as adafruit_bme280
 i2c = board.I2C() # also imu, rtc
 bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
+bme280.sea_level_pressure = 1013.25
+bme280.standby_period = adafruit_bme280.STANDBY_TC_0_5
+
+bme280.overscan_pressure = adafruit_bme280.OVERSCAN_DISABLE
+bme280.overscan_temperature = adafruit_bme280.OVERSCAN_DISABLE
+bme280.overscan_humidity = adafruit_bme280.OVERSCAN_DISABLE
+
 # gps
 import busio
 import adafruit_gps

@@ -61,7 +61,6 @@ import adafruit_ds3231
 rtc = adafruit_ds3231.DS3231(i2c)
 
 
-print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, ")
 
 while True:
     dataIn = ""
@@ -251,6 +250,7 @@ while True:
     time.sleep(0.01)
 
     print("dataIn" + "-"*50)
+    print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
     print(dataIn)
     
     

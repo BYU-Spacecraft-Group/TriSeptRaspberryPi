@@ -72,7 +72,7 @@ while True:
         values[i] = round(mcp.read_adc(i)) # is there a reason to round here?
     print('| {0:>4} | {1:>4} | {2:>4} | {3:>4} | {4:>4} | {5:>4} | {6:>4} | {7:>4} |'.format(*values))
     #adcvals = '| {0:>4} | {1:>4} | {2:>4} | {3:>4} | {4:>4} | {5:>4} | {6:>4} | {7:>4} |'.format(*values)
-    #dataIn += adcvals + ", "
+    dataIn += values[0] + ", "
 
     # bme280 ------------------------------------------------------------------------------
     print("BME" + "-"*50)
@@ -145,7 +145,9 @@ while True:
     # MS5803_01BA address, 0x76
     #		0x1E(30)	Reset command
     print("ms5803 pressure" + "-"*50)
-    try: 
+    try:  #this currently only works once -
+            # I'm not sure why but the library I found for it 
+            # (with looping example code) also doesn't work
         bus.write_byte(0x76, 0x1E)
 
         time.sleep(0.01)

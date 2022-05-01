@@ -72,6 +72,7 @@ rtc = adafruit_ds3231.DS3231(i2c)
 try:
 	#main loop
 	while True:
+		startCollect = time.time()
 		print(it)
 		#collecting data
 		dataIn = "" #string to save as a line
@@ -231,6 +232,8 @@ try:
 		# --------------------------------------------------------------------
 	
 		dataPipe.append(str(dataIn) + "\n")
+
+		print("Data collect time: " + str(time.time() - startCollect))
 
 		#saving data
 		it += 1

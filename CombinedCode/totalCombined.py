@@ -40,7 +40,6 @@ gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
 gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0") # turn it on
 gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
 
-last_print = time.monotonic() # may be unnecessary - used in making it 1 Hz
 
 # imu 
 from adafruit_icm20x import ICM20649, AccelRange, GyroRange
@@ -229,11 +228,6 @@ try:
 		# --------------------------------------------------------------------
 	
 		dataPipe.append(str(dataIn) + "\n")
-		
-		print(len(dataPipe))
-
-		for i in dataPipe:
-			print(str(type(i)) + str(i))
 
 		#saving data
 		it += 1

@@ -24,7 +24,8 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 # bme280
 import board #also: gps, imu, mprls pressure, rtc
-from adafruit_bme280 import basic as adafruit_bme280
+#from adafruit_bme280 import basic as adafruit_bme280
+import adafruit_bme280.advanced as adafruit_bme280
 
 i2c = board.I2C() # also imu, rtc
 bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)

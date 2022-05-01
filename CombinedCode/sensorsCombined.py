@@ -144,6 +144,7 @@ while True:
     # needs to be trimed and sleeps need to be removed <-----
     # MS5803_01BA address, 0x76
     #		0x1E(30)	Reset command
+    print("mw5803 pressure" + "-"*50)
     bus.write_byte(0x76, 0x1E)
 
     time.sleep(0.01)

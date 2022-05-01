@@ -54,7 +54,7 @@ mpr = adafruit_mprls.MPRLS(i2c, psi_min=0, psi_max=25)
 import smbus
 
 bus = smbus.SMBus(1)
-bus.write_byte(0x76, 0x1E)
+#bus.write_byte(0x76, 0x1E)
 
 # rtc --> sudo hwclock -r
 import adafruit_ds3231

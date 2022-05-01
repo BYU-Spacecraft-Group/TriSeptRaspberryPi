@@ -238,7 +238,7 @@ try:
 		#saving data
 		it += 1
 		if(it % STORING_GAP == 0):
-			#start = time.time() # for timing
+			start = time.time() # for timing
 			file = open(f"Results{ID}.csv", 'a')
 			file.writelines(dataPipe)
 			file.flush()
@@ -247,7 +247,7 @@ try:
 			#clear stored values
 			dataPipe.clear()
 				
-			#print(f"{it}: Write time: " + str(time.time() - start))
+			print(f"{it}: Write time: " + str(time.time() - start))
 
 		#time.sleep(0.013)
 

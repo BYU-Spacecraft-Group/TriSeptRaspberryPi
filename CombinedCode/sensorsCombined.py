@@ -146,7 +146,7 @@ while True:
     #		0x1E(30)	Reset command
     bus.write_byte(0x76, 0x1E)
 
-    time.sleep(0.5)
+    #time.sleep(0.5)
 
     # Read 12 bytes of calibration data
     # Read pressure sensitivity
@@ -177,7 +177,7 @@ while True:
     #		0x40(64)	Pressure conversion(OSR = 256) command
     bus.write_byte(0x76, 0x40)
 
-    time.sleep(0.5)
+    #time.sleep(0.5)
 
     # Read digital pressure value
     # Read data back from 0x00(0), 3 bytes
@@ -189,7 +189,7 @@ while True:
     #		0x50(64)	Temperature conversion(OSR = 256) command
     bus.write_byte(0x76, 0x50)
 
-    time.sleep(0.5)
+    #time.sleep(0.5)
 
     # Read digital temperature value
     # Read data back from 0x00(0), 3 bytes

@@ -16,6 +16,7 @@ bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
 # change this to match the location's pressure (hPa) at sea level
 #bme280.sea_level_pressure = 1013.25
+bme280.overscan_pressure(16)
 
 while True:
     start = time.time()

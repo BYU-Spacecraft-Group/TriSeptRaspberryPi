@@ -10,7 +10,7 @@ STORING_GAP = 10 # how many cycles to wait until you take the time to save
 it = 0
 dataPipe = []
 
-dataPipe.append("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
+dataPipe.append("SystemTime, ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC, \n")
 
 #adc
 import glob
@@ -76,6 +76,9 @@ try:
 		#collecting data
 		dataIn = "" #string to save as a line
 		
+		#### SystemTime
+		dataIn += f"{time.time()}, " 
+
 		# --------------------------------------------------------------------
 		#### adc
 		values = [0]*8
@@ -129,9 +132,9 @@ try:
 		dataIn += f"{mpr.pressure}, "
 
 		#### ms5803 pressure
-		try:  #this currently only works once -
-				# I'm not sure why but the library I found for it 
-				# (with looping example code) also doesn't work
+		try:  #this currently only works sometimes -
+				# I'm not sure why. I found a 3rd party library for it 
+				# (with looping example code) but it does about the same
 			bus.write_byte(0x76, 0x1E)
 
 			time.sleep(0.01)

@@ -85,7 +85,7 @@ try:
 		dataIn += str(values[0]) + ", "
 
 		#### bme280
-		dataIn += f"{bme280.temperature}, {bme280.relative_humidity}, {bme280.pressure}, "
+		dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
 
 		#### gps
 		gps.update()
@@ -223,12 +223,15 @@ try:
 
 		dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
     	
-		print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
-		print(dataIn)
+		#print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
+		#print(dataIn)
 
 		# --------------------------------------------------------------------
 	
 		data.append(str(dataIn) + "\n")
+
+		for i in data:
+			print(type(i) + str(i))
 
 		#saving data
 		it += 1

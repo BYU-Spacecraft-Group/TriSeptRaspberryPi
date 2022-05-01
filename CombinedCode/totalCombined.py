@@ -229,9 +229,10 @@ try:
 		# --------------------------------------------------------------------
 	
 		data.append(str(dataIn) + "\n")
+        print(len(data))
 
 		for i in data:
-			print(type(i) + str(i))
+			print(str(type(i)) + str(i))
 
 		#saving data
 		it += 1

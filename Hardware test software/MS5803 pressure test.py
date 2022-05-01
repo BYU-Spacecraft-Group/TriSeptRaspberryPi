@@ -8,15 +8,17 @@ import smbus
 import time
 
 
-while True:
-    # Get I2C bus
-    bus = smbus.SMBus(1)
-	
-    # MS5803_01BA address, 0x76
-	#		0x1E(30)	Reset command
-    bus.write_byte(0x76, 0x1E)
 
-    time.sleep(0.5)
+# Get I2C bus
+bus = smbus.SMBus(1)
+	
+# MS5803_01BA address, 0x76
+#		0x1E(30)	Reset command
+bus.write_byte(0x76, 0x1E)
+
+time.sleep(0.5)
+	
+while True:
 
 	# Read 12 bytes of calibration data
 	# Read pressure sensitivity

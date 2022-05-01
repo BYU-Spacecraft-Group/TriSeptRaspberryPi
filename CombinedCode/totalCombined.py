@@ -78,19 +78,26 @@ try:
 		dataIn = "" #string to save as a line
 		
 		#### SystemTime
-		dataIn += f"{time.time()}, " 
+		startSysTime = time.time()
+		dataIn += f"{time.time()}, "
+		print("System Time Log: " + str(time.time() - startSysTime)) 
 
 		# --------------------------------------------------------------------
 		#### adc
+		startADC = time.time()
 		values = [0]*8
 		for i in range(8):
 			values[i] = round(mcp.read_adc(i)) # is there a reason to round here?
 		dataIn += str(values[0]) + ", "
+		print("ADC time: " + str(time.time() - startADC))
 
 		#### bme280
+		startBME = time.time()
 		dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
+		print("BME Time: " + str(time.time() - startBME))
 
 		#### gps
+		startgps = time.time()
 		gps.update()
 		current = time.monotonic()
 
@@ -125,14 +132,20 @@ try:
 				dataIn += "-, "
 		else:
 			dataIn += "-, -, -, -, -, -, -, -, -, -, "
+		print("GPS Time: " + str(time.time() - startgps))
 
 		#### imu 
+		startIMU = time.time()
 		dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
+		print("IMU Time: " + str(time.time() - startIMU))
 
 		#### mprls pressure
+		startMPR = time.time()
 		dataIn += f"{mpr.pressure}, "
+		print("MPR Time: " + str(time.time() - startMPR))
 
 		#### ms5803 pressure
+		startMS58 = time.time()
 		try:  #this currently only works sometimes -
 				# I'm not sure why. I found a 3rd party library for it 
 				# (with looping example code) but it does about the same
@@ -220,11 +233,14 @@ try:
 			dataIn += f"{pressure}, {cTemp}, {fTemp}, "
 		except OSError:
 			dataIn += "-, -, -, "
+		print("MS5803 Time: " + str(time.time() - startMS58))
 		
 		#### RTC
+		startRTC = time.time()
 		t = rtc.datetime
 
 		dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
+		print("RTC Time: " + str(time.time() - startRTC))
     	
 		#print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
 		#print(dataIn)

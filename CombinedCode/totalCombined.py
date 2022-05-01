@@ -8,9 +8,9 @@ print(ID)
 STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
 it = 0
-data = []
+dataPipe = []
 
-data.append("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
+dataPipe.append("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
 
 #adc
 import glob
@@ -228,10 +228,11 @@ try:
 
 		# --------------------------------------------------------------------
 	
-		data.append(str(dataIn) + "\n")
-        print(len(data))
+		dataPipe.append(str(dataIn) + "\n")
+		
+		print(len(dataPipe))
 
-		for i in data:
+		for i in dataPipe:
 			print(str(type(i)) + str(i))
 
 		#saving data
@@ -239,12 +240,12 @@ try:
 		if(it % STORING_GAP == 0):
 			#start = time.time() # for timing
 			file = open(f"Results{ID}.csv", 'a')
-			file.writelines(data)
+			file.writelines(dataPipe)
 			file.flush()
 			os.fsync(file.fileno())
 			file.close()
 			#clear stored values
-			data.clear()
+			dataPipe.clear()
 				
 			#print(f"{it}: Write time: " + str(time.time() - start))
 

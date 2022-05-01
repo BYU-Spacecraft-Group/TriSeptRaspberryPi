@@ -10,6 +10,8 @@ STORING_GAP = 10 # how many cycles to wait until you take the time to save
 it = 0
 data = []
 
+data.append("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
+
 #adc
 import glob
 import csv
@@ -119,7 +121,6 @@ try:
 			else:
 				dataIn += "-, "
 		else:
-			print("Waiting for fix...")
 			dataIn += "-, -, -, -, -, -, -, -, -, -, "
 
 		#### imu 
@@ -215,19 +216,19 @@ try:
 
 			dataIn += f"{pressure}, {cTemp}, {fTemp}, "
 		except OSError:
-			print("OSError")
 			dataIn += "-, -, -, "
 		
 		#### RTC
 		t = rtc.datetime
 
 		dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
-
+    	
+		print("ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC")
 		print(dataIn)
 
 		# --------------------------------------------------------------------
 	
-		data.append(dataIn + "\n")
+		data.append(str(dataIn) + "\n")
 
 		#saving data
 		it += 1

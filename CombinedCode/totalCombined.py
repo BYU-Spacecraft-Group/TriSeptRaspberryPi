@@ -57,7 +57,7 @@ ism.accelerometer_range = AccelRange.RANGE_30G
 ism.gyro_range = GyroRange.RANGE_4000_DPS
 ax_max = ay_max = az_max = 0
 gx_max = gy_max = gz_max = 0
-ism.gyro_data_rate = 125
+ism.gyro_data_rate = 1100
 ism.accelerometer_data_rate = 1125
 st = time.monotonic()
 

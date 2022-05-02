@@ -27,15 +27,17 @@ print("Gyro range set to: %d DPS" % GyroRange.string[ism.gyro_range])
 ax_max = ay_max = az_max = 0
 gx_max = gy_max = gz_max = 0
 
-ism.gyro_data_rate = 125
+ism.gyro_data_rate = 1100 #125
 ism.accelerometer_data_rate = 1125
 st = time.monotonic()
 while True:
 
+    start = time.time()
     print(
         "Accel X:%.2f Y:%.2f Z:%.2f ms^2 Gyro X:%.2f Y:%.2f Z:%.2f degrees/s"
         % (ism.acceleration + ism.gyro)
     )
+    print("Sense time: " + str(time.time() - start))
     
     time.sleep(1)
 

@@ -46,8 +46,9 @@ import serial
 uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=10)
 gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
 gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0") # turn it on
-gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
-
+#gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
+gps.send_command(b"PMTK220,500") # set update rate to 2Hz - according to example code this is the max
+last_print = time.monotonic()
 
 # imu 
 from adafruit_icm20x import ICM20649, AccelRange, GyroRange
@@ -109,7 +110,8 @@ try:
 		gps.update()
 		current = time.monotonic()
 
-		if gps.has_fix: #current - last_print >= 1.0:
+		if gps.has_fix and (current - last_print) >= 0.5:
+			last_print = current
 			dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestampe_utc.tm_sec}, "
 			dataIn += f"{gps.latitude}, {gps.longitude}, "
 			# Some attributes beyond latitude, longitude and timestamp are optional

@@ -43,7 +43,7 @@ import adafruit_gps
 import serial
 
         # using uart - can use I2C if necessary
-uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=10)
+uart = serial.Serial("/dev/ttyAMA0", baudrate=9600, timeout=10)
 gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
 gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0") # turn it on
 #gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
@@ -112,7 +112,7 @@ try:
 
 		if gps.has_fix and (current - last_print) >= 0.5:
 			last_print = current
-			dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestamp_utc.tm_sec}, "
+			dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestampe_utc.tm_sec}, "
 			dataIn += f"{gps.latitude}, {gps.longitude}, "
 			# Some attributes beyond latitude, longitude and timestamp are optional
 			# and might not be present.  Check if they're None before trying to use!

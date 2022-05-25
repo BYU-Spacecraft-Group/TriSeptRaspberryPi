@@ -123,7 +123,7 @@ while True:
             print("Horizontal dilution: {}".format(gps.horizontal_dilution))
         if gps.height_geoid is not None:
             print("Height geoid: {} meters".format(gps.height_geoid))
-        dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestampe_utc.tm_sec}, "
+        dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestamp_utc.tm_sec}, "
         dataIn += f"{gps.latitude}, {gps.longitude}, {gps.fix_quality}, {gps.satellites}, {gps.altitude_m}, {gps.speed_knots}, "
         dataIn += f"{gps.track_angle_deg}, {gps.horizontal_dilution}, {gps.height_geoid}, "
     else:

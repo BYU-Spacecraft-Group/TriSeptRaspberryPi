@@ -7,7 +7,7 @@ bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
 bme280.sea_level_pressure = 1013.25
 
-bme280.overscan_pressure = OVERSCAN_
+bme280.overscan_pressure = adafruit_bme280.OVERSCAN_X1
 
 start = time.time()
 

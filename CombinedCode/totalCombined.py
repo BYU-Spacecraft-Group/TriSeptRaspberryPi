@@ -113,8 +113,19 @@ try:
 
 		if gps.has_fix and (current - last_print) >= 0.5:
 			last_print = current
-			dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestamp_utc.tm_sec}, "
-			dataIn += f"{gps.latitude}, {gps.longitude}, "
+			if gps.timestamp_utc is not None:
+				dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestamp_utc.tm_sec}, "
+			else:
+				dataIn += "-, "
+			if gps.latitude is not None:
+				dataIn += f"{gps.latitude}, "
+			else: 
+				dataIn += "-, "
+			if gps.longitude is not None:
+				dataIn += f"{gps.longitude}, "
+			else:
+				dataIn += "-, "
+
 			# Some attributes beyond latitude, longitude and timestamp are optional
 			# and might not be present.  Check if they're None before trying to use!
 			if gps.satellites is not None:

@@ -128,11 +128,11 @@ try:
 
 			# Some attributes beyond latitude, longitude and timestamp are optional
 			# and might not be present.  Check if they're None before trying to use!
-            if gps.fix_quality is not None:
-                dataIn += f"{gps.fix_quality}, "
-            else: 
-                dataIn += "-, "
-            if gps.satellites is not None:
+			if gps.fix_quality is not None:
+				dataIn += f"{gps.fix_quality}, "
+			else: 
+				dataIn += "-, "
+			if gps.satellites is not None:
 				dataIn += f"{gps.satellites}, "
 			else:
 				dataIn += "-, "

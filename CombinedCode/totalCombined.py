@@ -254,11 +254,11 @@ try:
 			SENS = SENS - SENS2
 			pressure = ((((D1 * SENS) / 2097152) - OFF) / 32768.0) / 100.0
 			cTemp = TEMP / 100.0
-			fTemp = cTemp * 1.8 + 32
+			#fTemp = cTemp * 1.8 + 32
 
-			dataIn += f"{pressure}, {cTemp}, {fTemp}, "
+			dataIn += f"{pressure}, {cTemp}, " #{fTemp}, "
 		except OSError:
-			dataIn += "-, -, -, "
+			dataIn += "-, -, "
 		print("MS5803 Time: " + str(time.time() - startMS58))
 		
 		#### RTC

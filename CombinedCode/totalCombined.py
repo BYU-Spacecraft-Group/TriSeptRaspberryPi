@@ -10,7 +10,7 @@ STORING_GAP = 10 # how many cycles to wait until you take the time to save
 it = 0
 dataPipe = []
 
-dataPipe.append("SystemTime, ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, TempF, RTC, \n")
+dataPipe.append("SystemTime, ADC, Temp, Hum, Pres, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MS5803Pressure, TempC, RTC, \n")
 
 #adc
 import glob

@@ -36,7 +36,7 @@ if False:  # change to True if you want to set the time!
 # Main loop:
 while True:
     t = rtc.datetime
-    # print(t)     # uncomment for debugging
+    #print(t)     # uncomment for debugging
     print(
         "The date is {} {}/{}/{}".format(
             days[int(t.tm_wday)], t.tm_mday, t.tm_mon, t.tm_year

@@ -71,6 +71,8 @@ while True:
                 dataPipe.clear()
                     
                 print(f"{it}: Write time: " + str(time.time() - start))
+            else:
+                time.sleep(0.01)
 
     except OSError:
         print("-- OSError on SPI --")

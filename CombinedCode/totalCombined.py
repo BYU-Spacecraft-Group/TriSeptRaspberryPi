@@ -101,7 +101,7 @@ try:
 		dataIn += str(values[0]) + ", "
 		print("ADC time: " + str(time.time() - startADC))
 
-		#### bme280 ----- Currently takes the longest time - ~0.12s (which is about  2/3 of the time taken)
+		#### bme280 
 		startBME = time.time()
 		dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
 		print("BME Time: " + str(time.time() - startBME))

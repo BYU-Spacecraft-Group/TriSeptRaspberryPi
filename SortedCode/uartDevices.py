@@ -130,7 +130,7 @@ while True:
                 else:
                     start = time.time() # for timing
                     file = open(f"Results{ID}.csv", 'a')
-                    file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -,")
+                    file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -, \n")
                     file.flush()
                     os.fsync(file.fileno())
                     file.close()

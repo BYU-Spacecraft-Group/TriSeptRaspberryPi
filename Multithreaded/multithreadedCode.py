@@ -1,7 +1,5 @@
 #!/user/bin/python
 
-
-
 ## imports
 while True:
     try:
@@ -177,7 +175,7 @@ def ms5803():
         return f"{pressure}, {cTemp}, " #{fTemp}, "
     except OSError:
         return "-, -, "
-    print("MS5803 Time: " + str(time.time() - startMS58))
+    print("---> MS5803 Time: " + str(time.time() - startMS58))
 
 def i2c():
     while True:
@@ -206,22 +204,22 @@ def i2c():
                 #### SystemTime
                 startSysTime = time.time()
                 dataIn += f"{time.time()}, "
-                print("System Time Log: " + str(time.time() - startSysTime)) 
+                print("---> System Time Log: " + str(time.time() - startSysTime)) 
 
                 #### bme280 ----- Currently takes around the longest time - ~0.03s
                 startBME = time.time()
                 dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
-                print("BME Time: " + str(time.time() - startBME))
+                print("---> BME Time: " + str(time.time() - startBME))
 
                 #### imu 
                 startIMU = time.time()
                 dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
-                print("IMU Time: " + str(time.time() - startIMU))
+                print("---> IMU Time: " + str(time.time() - startIMU))
 
                 #### mprls pressure
                 startMPR = time.time()
                 dataIn += f"{mpr.pressure}, "
-                print("MPR Time: " + str(time.time() - startMPR))
+                print("---> MPR Time: " + str(time.time() - startMPR))
 
                 #### ms5803
                 dataIn += ms5803()
@@ -231,11 +229,11 @@ def i2c():
                 t = rtc.datetime
 
                 dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
-                print("RTC Time: " + str(time.time() - startRTC))
+                print("---> RTC Time: " + str(time.time() - startRTC))
 
                 dataPipe.append(str(dataIn) + "\n")
 
-                print("Data collect time: " + str(time.time() - startCollect))
+                print("---> Data collect time: " + str(time.time() - startCollect))
 
                 #saving data
                 it += 1
@@ -249,7 +247,7 @@ def i2c():
                     #clear stored values
                     dataPipe.clear()
                         
-                    print(f"{it}: Write time: " + str(time.time() - start))
+                    print(f"---> {it}: Write time: " + str(time.time() - start))
         except OSError:
             print("-- OS ERROR on I2C --")
             break

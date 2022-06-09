@@ -180,7 +180,7 @@ def i2c():
             time.sleep(1)
     except KeyboardInterrupt:
         print("-- KeybaordInturrupt i2c --")
-        
+
 
 def spi():
     for i in range(100):
@@ -201,5 +201,12 @@ uartThread = thread(3, "UART Thread", uart)
 i2cThread.start()
 spiThread.start()
 uartThread.start()
+
+try:
+    i2cThread.join()
+    spiThread.join()
+    uartThread.join()
+except Exception as e:
+    print(e)
 
 print("done")

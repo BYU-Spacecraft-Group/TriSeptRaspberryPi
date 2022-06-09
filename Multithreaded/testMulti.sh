@@ -2,6 +2,6 @@
 
 python multithreadedCode.py > outputMulti.txt &
 
-sleep 20
+sleep 10
 
 kill $(pgrep -f 'python multithreadedCode.py')

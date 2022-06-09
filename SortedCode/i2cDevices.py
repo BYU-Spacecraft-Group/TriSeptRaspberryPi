@@ -155,9 +155,9 @@ def ms5803():
         cTemp = TEMP / 100.0
         #fTemp = cTemp * 1.8 + 32
 
-        dataIn += f"{pressure}, {cTemp}, " #{fTemp}, "
+        return f"{pressure}, {cTemp}, " #{fTemp}, "
     except OSError:
-        dataIn += "-, -, "
+        return "-, -, "
     print("MS5803 Time: " + str(time.time() - startMS58))
 
 while True: # another retry scheme 
@@ -189,7 +189,7 @@ while True: # another retry scheme
             print("MPR Time: " + str(time.time() - startMPR))
 
             #### ms5803
-            ms5803()
+            dataIn += ms5803()
 
             #### RTC
             startRTC = time.time()

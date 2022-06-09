@@ -222,6 +222,7 @@ while True: # another retry scheme
     except KeyboardInterrupt:
         print("-- KeyboardInterrupt on I2C --")
         break
-    except:
+    except Exception as e:
+        print(e)
         continue
     # without break because it should never break 

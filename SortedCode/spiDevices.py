@@ -77,6 +77,9 @@ while True:
     except OSError:
         print("-- OSError on SPI --")
         break
+    except KeyboardInterrupt:
+        print("-- KeyboardInterrupt on SPI --")
+        break
     except:
         continue
     # no break

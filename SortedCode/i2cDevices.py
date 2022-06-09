@@ -217,7 +217,10 @@ while True: # another retry scheme
                 print(f"{it}: Write time: " + str(time.time() - start))
                 
     except OSError:
-        print("--OS ERROR on I2C")
+        print("-- OS ERROR on I2C --")
+        break
+    except KeyboardInterrupt:
+        print("-- KeyboardInterrupt on I2C --")
         break
     except:
         continue

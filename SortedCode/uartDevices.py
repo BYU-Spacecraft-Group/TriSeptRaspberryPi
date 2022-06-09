@@ -140,6 +140,9 @@ while True:
     except OSError:
         print("-- OSError in UART --")
         break
+    except KeyboardInterrupt:
+        print("-- KeyboardInterrupt on UART --")
+        break
     except:
         continue
     # no break

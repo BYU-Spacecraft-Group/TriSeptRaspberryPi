@@ -2,9 +2,9 @@
 
 #Used for simultaneously testing the python files in SortedCode
 
-python i2cDevices.py > i2cOutput.txt &
-python spiDevices.py > spiOutput.txt &
-python uartDevices.py > uartOutput.txt &
+python i2cDevices.py > outputI2C.txt &
+python spiDevices.py > outputSPI.txt &
+python uartDevices.py > outputUART.txt &
 
 sleep 10
 

@@ -6,6 +6,7 @@ import time
 ## imports
 while True:
     try:
+
         # adc
         # import glob
         # import csv
@@ -174,23 +175,283 @@ def ms5803():
     print("MS5803 Time: " + str(time.time() - startMS58))
 
 def i2c():
-    try:
-        for i in range(100):
-            print("hello")
-            time.sleep(1)
-    except KeyboardInterrupt:
-        print("-- KeybaordInturrupt i2c --")
+    while True:
+        try:
+            #setup file ID using system clock and random()
+            ID = time.strftime("%H%M%S", time.localtime()) + str(int(random() * 100))
+
+            STORING_GAP = 10 # how many cycles to wait until you take the time to save
+
+            it = 0
+            dataPipe = []
+
+            dataPipe.append("SystemTime, Temp, Hum, Pres, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, RTC, \n")
+        except:
+            continue
+        break
+    while True: # retry scheme 
+        try:
+            while True:
+                startCollect = time.time()
+                print(it)
+                #collecting data
+                dataIn = "" #string to save as a line
+
+                #### SystemTime
+                startSysTime = time.time()
+                dataIn += f"{time.time()}, "
+                print("System Time Log: " + str(time.time() - startSysTime)) 
+
+                #### bme280 ----- Currently takes around the longest time - ~0.03s
+                startBME = time.time()
+                dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
+                print("BME Time: " + str(time.time() - startBME))
+
+                #### imu 
+                startIMU = time.time()
+                dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
+                print("IMU Time: " + str(time.time() - startIMU))
+
+                #### mprls pressure
+                startMPR = time.time()
+                dataIn += f"{mpr.pressure}, "
+                print("MPR Time: " + str(time.time() - startMPR))
+
+                #### ms5803
+                dataIn += ms5803()
+
+                #### RTC
+                startRTC = time.time()
+                t = rtc.datetime
+
+                dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
+                print("RTC Time: " + str(time.time() - startRTC))
+
+                dataPipe.append(str(dataIn) + "\n")
+
+                print("Data collect time: " + str(time.time() - startCollect))
+
+                #saving data
+                it += 1
+                if(it % STORING_GAP == 0):
+                    start = time.time() # for timing
+                    file = open(f"ResultsI2C{ID}.csv", 'a')
+                    file.writelines(dataPipe)
+                    file.flush()
+                    os.fsync(file.fileno())
+                    file.close()
+                    #clear stored values
+                    dataPipe.clear()
+                        
+                    print(f"{it}: Write time: " + str(time.time() - start))
+        except OSError:
+            print("-- OS ERROR on I2C --")
+            break
+        except KeyboardInterrupt:
+            print("-- KeyboardInterrupt on I2C --")
+            break
+        except Exception as e:
+            print(e)
+            continue
+        # without break because it should never break 
 
 
 def spi():
-    for i in range(100):
-        print("hello SPI")
-        time.sleep(2)
+    while True:
+        try:
+            #setup file ID using system clock and random()
+            ID = time.strftime("%H%M%S", time.localtime()) + str(int(random() * 100))
+            print(ID)
+            STORING_GAP = 10 # how many cycles to wait until you take the time to save
+
+            it = 0
+            dataPipe = []
+            
+            dataPipe.append("SystemTime, ADC, \n")
+            
+        except:
+            continue
+        break
+    while True:
+        try:
+            while True:
+                startCollect = time.time()
+                print(it)
+                #collecting data
+                dataIn = "" #string to save as a line
+                
+                #### SystemTime
+                startSysTime = time.time()
+                dataIn += f"{time.time()}, "
+                print("System Time Log: " + str(time.time() - startSysTime)) 
+
+                #### adc
+                startADC = time.time()
+                values = [0]*8
+                for i in range(8):
+                    values[i] = round(mcp.read_adc(i)) # is there a reason to round here?
+                dataIn += str(values[0]) + ", "
+                print("ADC time: " + str(time.time() - startADC))
+
+                # --------------------------------------------------------------------
+
+                dataPipe.append(str(dataIn) + "\n")
+                
+                print("Data collect time: " + str(time.time() - startCollect))
+
+                #saving data
+                it += 1
+                if(it % STORING_GAP == 0):
+                    start = time.time() # for timing
+                    file = open(f"ResultsSPI{ID}.csv", 'a')
+                    file.writelines(dataPipe)
+                    file.flush()
+                    os.fsync(file.fileno())
+                    file.close()
+                    #clear stored values
+                    dataPipe.clear()
+                        
+                    print(f"{it}: Write time: " + str(time.time() - start))
+                else:
+                    time.sleep(0.01)
+
+        except OSError:
+            print("-- OSError on SPI --")
+            break
+        except KeyboardInterrupt:
+            print("-- KeyboardInterrupt on SPI --")
+            break
+        except:
+            continue
+        # no break
 
 def uart():
-    for i in range(100):
-        print("hello UART")
-        time.sleep(3)
+    while True:
+        try:
+            #setup file ID using system clock and random()
+            ID = time.strftime("%H%M%S", time.localtime()) + str(int(random() * 100))
+            print(ID)
+            STORING_GAP = 10 # how many cycles to wait until you take the time to save
+
+            it = 0
+            dataPipe = []
+
+            dataPipe.append("SystemTime, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, \n")
+
+        except:
+            continue
+        break
+    while True:
+        storageStart = time.time() # for regardless saving
+        try:
+            while True:
+                startCollect = time.time()
+                print(it)
+                #collecting data
+                dataIn = "" #string to save as a line
+
+                #### gps
+                startgps = time.time()
+                gps.update()
+                current = time.monotonic()
+
+                if gps.has_fix and (current - last_print) >= 0.5:
+
+                    #### SystemTime
+                    startSysTime = time.time()
+                    dataIn += f"{time.time()}, "
+                    print("System Time Log: " + str(time.time() - startSysTime))
+
+                    last_print = current
+                    if gps.timestamp_utc is not None:
+                        dataIn += f"{gps.timestamp_utc.tm_hour}:{gps.timestamp_utc.tm_min}:{gps.timestamp_utc.tm_sec}, "
+                    else:
+                        dataIn += "-, "
+                    if gps.latitude is not None:
+                        dataIn += f"{gps.latitude}, "
+                    else: 
+                        dataIn += "-, "
+                    if gps.longitude is not None:
+                        dataIn += f"{gps.longitude}, "
+                    else:
+                        dataIn += "-, "
+
+                    # Some attributes beyond latitude, longitude and timestamp are optional
+                    # and might not be present.  Check if they're None before trying to use!
+                    if gps.fix_quality is not None:
+                        dataIn += f"{gps.fix_quality}, "
+                    else: 
+                        dataIn += "-, "
+                    if gps.satellites is not None:
+                        dataIn += f"{gps.satellites}, "
+                    else:
+                        dataIn += "-, "
+                    if gps.altitude_m is not None:
+                        dataIn += f"{gps.altitude_m}, "
+                    else:
+                        dataIn += "-, "
+                    if gps.speed_knots is not None:
+                        dataIn += f"{gps.speed_knots}, "
+                    else:
+                        dataIn += "-, "
+                    if gps.track_angle_deg is not None:
+                        dataIn += f"{gps.track_angle_deg}, "
+                    else:
+                        dataIn += "-, "
+                    if gps.horizontal_dilution is not None:
+                        dataIn += f"{gps.horizontal_dilution}, "
+                    else:
+                        dataIn += "-, "
+                    if gps.height_geoid is not None:
+                        dataIn += f"{gps.height_geoid}, "
+                    else:
+                        dataIn += "-, "
+                    it += 1
+                    dataPipe.append(str(dataIn) + "\n")
+                else:
+                    dataIn += "-, -, -, -, -, -, -, -, -, -, "
+                print("GPS Time: " + str(time.time() - startgps))
+
+                # --------------------------------------------------------------------
+            
+                
+
+                print("Data collect time: " + str(time.time() - startCollect))
+
+                #saving data
+                #it += 1
+                if(it % STORING_GAP == 0 or storageStart - time.time() > 10):
+                    storageStart = time.time() # for regardless saving
+                    if len(dataPipe) > 0:
+                        start = time.time() # for timing
+                        file = open(f"Results{ID}.csv", 'a')
+                        file.writelines(dataPipe)
+                        file.flush()
+                        os.fsync(file.fileno())
+                        file.close()
+                        #clear stored values
+                        dataPipe.clear()
+                            
+                        print(f"{it}: Write time: " + str(time.time() - start))
+                    else:
+                        start = time.time() # for timing
+                        file = open(f"Results{ID}.csv", 'a')
+                        file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -, \n")
+                        file.flush()
+                        os.fsync(file.fileno())
+                        file.close()
+
+                        print(f"{it}: (NO DATA) Write time: " + str(time.time() - start))
+
+        except OSError:
+            print("-- OSError in UART --")
+            break
+        except KeyboardInterrupt:
+            print("-- KeyboardInterrupt on UART --")
+            break
+        except:
+            continue
+        # no break
 
 #create new thread
 i2cThread = thread(1, "I2C Thread", i2c)

@@ -187,8 +187,8 @@ def i2c():
             dataPipe = []
 
             dataPipe.append("SystemTime, Temp, Hum, Pres, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, RTC, \n")
-        except:
-            print("exception in i2c setup")
+        except Exception as e:
+            print("exception in i2c setup ", e)
             continue
         break
     while True: # retry scheme 
@@ -272,8 +272,8 @@ def spi():
             
             dataPipe.append("SystemTime, ADC, \n")
 
-        except:
-            print("exceptoin in spi setup")
+        except Exception as e:
+            print("exceptoin in spi setup ", e)
             continue
         break
     while True:
@@ -343,8 +343,8 @@ def uart():
 
             dataPipe.append("SystemTime, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, \n")
 
-        except:
-            print("exception in UART setup")
+        except Exception as e:
+            print("exception in UART setup ", e)
             continue
         break
     while True:

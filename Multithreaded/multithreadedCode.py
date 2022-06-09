@@ -6,7 +6,6 @@ import time
 ## imports
 while True:
     try:
-
         # adc
         # import glob
         # import csv
@@ -68,8 +67,10 @@ while True:
         print("importing done")
 
     except KeyboardInterrupt:
+        print("Keyboard interrupt in import")
         break
     except:
+        print("Other exception in import")
         continue
     break
 
@@ -187,6 +188,7 @@ def i2c():
 
             dataPipe.append("SystemTime, Temp, Hum, Pres, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, RTC, \n")
         except:
+            print("exception in i2c setup")
             continue
         break
     while True: # retry scheme 
@@ -251,6 +253,7 @@ def i2c():
             print("-- KeyboardInterrupt on I2C --")
             break
         except Exception as e:
+            print("exception in i2c main loop")
             print(e)
             continue
         # without break because it should never break 
@@ -268,8 +271,9 @@ def spi():
             dataPipe = []
             
             dataPipe.append("SystemTime, ADC, \n")
-            
+
         except:
+            print("exceptoin in spi setup")
             continue
         break
     while True:
@@ -322,6 +326,7 @@ def spi():
             print("-- KeyboardInterrupt on SPI --")
             break
         except:
+            print("exception in SPI main loop")
             continue
         # no break
 
@@ -339,6 +344,7 @@ def uart():
             dataPipe.append("SystemTime, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, \n")
 
         except:
+            print("exception in UART setup")
             continue
         break
     while True:
@@ -450,6 +456,7 @@ def uart():
             print("-- KeyboardInterrupt on UART --")
             break
         except:
+            print("exception in UART main loop")
             continue
         # no break
 

@@ -1,10 +1,10 @@
 # multiuse
 import time
-import os
+# import os
 
 # adc
-import glob
-import csv
+# import glob
+# import csv
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
 

@@ -79,8 +79,8 @@ while True:
     except KeyboardInterrupt:
         print("Keyboard interrupt in import")
         break
-    except:
-        print("Other exception in import")
+    except Exception as e:
+        print("Other exception in import", e)
         continue
     break
 

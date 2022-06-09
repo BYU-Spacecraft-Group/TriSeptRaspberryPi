@@ -7,6 +7,7 @@ while True:
     try:
         import threading
         import time
+        import os
         from random import random
 
         # adc

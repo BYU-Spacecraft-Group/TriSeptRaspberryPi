@@ -63,7 +63,9 @@ while True:
         # rtc --> sudo hwclock -r
         import adafruit_ds3231
         rtc = adafruit_ds3231.DS3231(i2c)
-        
+
+        print("importing done")
+
     except KeyboardInterrupt:
         break
     except:

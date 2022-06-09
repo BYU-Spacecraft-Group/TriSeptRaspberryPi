@@ -1,11 +1,14 @@
 #!/user/bin/python
 
-import threading
-import time
+
 
 ## imports
 while True:
     try:
+        import threading
+        import time
+        from random import random
+
         # adc
         # import glob
         # import csv
@@ -253,8 +256,7 @@ def i2c():
             print("-- KeyboardInterrupt on I2C --")
             break
         except Exception as e:
-            print("exception in i2c main loop")
-            print(e)
+            print("exception in i2c main loop ", e)
             continue
         # without break because it should never break 
 
@@ -325,8 +327,8 @@ def spi():
         except KeyboardInterrupt:
             print("-- KeyboardInterrupt on SPI --")
             break
-        except:
-            print("exception in SPI main loop")
+        except Exception as e:
+            print("exception in SPI main loop ", e)
             continue
         # no break
 
@@ -455,8 +457,8 @@ def uart():
         except KeyboardInterrupt:
             print("-- KeyboardInterrupt on UART --")
             break
-        except:
-            print("exception in UART main loop")
+        except Exception as e:
+            print("exception in UART main loop ", e)
             continue
         # no break
 

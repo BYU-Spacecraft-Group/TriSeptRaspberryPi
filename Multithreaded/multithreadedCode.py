@@ -69,7 +69,8 @@ while True:
         import smbus
 
         bus = smbus.SMBus(1)
-        #bus.write_byte(0x76, 0x1E)
+        bus.write_byte(0x76, 0x1E)
+        MS5803_DELAY = 0.60 / 1000
 
         # rtc --> sudo hwclock -r
         import adafruit_ds3231
@@ -100,9 +101,9 @@ def ms5803():
     try:  #this currently only works sometimes -
             # I'm not sure why. I found a 3rd party library for it 
             # (with looping example code) but it does about the same
-        bus.write_byte(0x76, 0x1E)
+        # bus.write_byte(0x76, 0x1E) done in setup
 
-        time.sleep(0.01)
+        # time.sleep(0.01)
 
         # Read 12 bytes of calibration data
         # Read pressure sensitivity
@@ -133,7 +134,7 @@ def ms5803():
         #		0x40(64)	Pressure conversion(OSR = 256) command
         bus.write_byte(0x76, 0x40)
 
-        time.sleep(0.01)
+        time.sleep(MS5803_DELAY)
 
         # Read digital pressure value
         # Read data back from 0x00(0), 3 bytes
@@ -145,7 +146,7 @@ def ms5803():
         #		0x50(64)	Temperature conversion(OSR = 256) command
         bus.write_byte(0x76, 0x50)
 
-        time.sleep(0.01)
+        time.sleep(MS5803_DELAY)
 
         # Read digital temperature value
         # Read data back from 0x00(0), 3 bytes

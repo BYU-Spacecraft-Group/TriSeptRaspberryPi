@@ -11,7 +11,7 @@
 import smbus
 import time
 
-
+DELAY = .60 / 1000 #0.5
 # Get I2C bus
 bus = smbus.SMBus(1)
 	
@@ -53,7 +53,7 @@ while True:
 	#		0x40(64)	Pressure conversion(OSR = 256) command
     bus.write_byte(0x76, 0x40)
 
-    time.sleep(0.5)
+    time.sleep(DELAY)
 
 	# Read digital pressure value
 	# Read data back from 0x00(0), 3 bytes
@@ -65,7 +65,7 @@ while True:
 	#		0x50(64)	Temperature conversion(OSR = 256) command
     bus.write_byte(0x76, 0x50)
 
-    time.sleep(0.5)
+    time.sleep(DELAY)
 
 	# Read digital temperature value
 	# Read data back from 0x00(0), 3 bytes

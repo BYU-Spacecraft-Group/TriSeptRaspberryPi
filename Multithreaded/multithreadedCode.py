@@ -197,6 +197,8 @@ def i2c():
             dataPipe = []
 
             dataPipe.append("SystemTime, Temp, Hum, Pres, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, RTC, \n")
+
+
         except Exception as e:
             print("exception in i2c setup ", e)
             continue
@@ -215,9 +217,13 @@ def i2c():
                 print("---> System Time Log: " + str(time.time() - startSysTime)) 
 
                 #### bme280 ----- Currently takes around the longest time - ~0.03s
-                startBME = time.time()
-                dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
-                print("---> BME Time: " + str(time.time() - startBME))
+                if it % 5 == 0:
+                    startBME = time.time()
+                    dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
+                    print("---> BME Time: " + str(time.time() - startBME))
+                else:
+                    dataIn += "-, -, -, "
+                    print("---> SKIPPED BME ")
 
                 #### imu 
                 startIMU = time.time()

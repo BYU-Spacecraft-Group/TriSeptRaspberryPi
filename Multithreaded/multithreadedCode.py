@@ -447,7 +447,7 @@ def uart():
                     storageStart = time.time() # for regardless saving
                     if len(dataPipe) > 0:
                         start = time.time() # for timing
-                        file = open(f"Results{ID}.csv", 'a')
+                        file = open(f"ResultsUART{ID}.csv", 'a')
                         file.writelines(dataPipe)
                         file.flush()
                         os.fsync(file.fileno())

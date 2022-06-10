@@ -74,6 +74,7 @@ import smbus
 
 bus = smbus.SMBus(1)
 bus.write_byte(0x76, 0x1E) # ?
+MS5803_DELAY = 0.60 / 1000
 
 # rtc --> sudo hwclock -r
 import adafruit_ds3231
@@ -208,7 +209,7 @@ try:
 			#		0x40(64)	Pressure conversion(OSR = 256) command
 			bus.write_byte(0x76, 0x40)
 
-			time.sleep(0.01)
+			time.sleep(MS5803_DELAY)
 
 			# Read digital pressure value
 			# Read data back from 0x00(0), 3 bytes
@@ -220,7 +221,7 @@ try:
 			#		0x50(64)	Temperature conversion(OSR = 256) command
 			bus.write_byte(0x76, 0x50)
 
-			time.sleep(0.01)
+			time.sleep(MS5803_DELAY)
 
 			# Read digital temperature value
 			# Read data back from 0x00(0), 3 bytes

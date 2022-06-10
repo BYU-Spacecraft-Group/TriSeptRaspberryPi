@@ -73,7 +73,7 @@ mpr = adafruit_mprls.MPRLS(i2c, psi_min=0, psi_max=25)
 import smbus
 
 bus = smbus.SMBus(1)
-#bus.write_byte(0x76, 0x1E)
+bus.write_byte(0x76, 0x1E) # ?
 
 # rtc --> sudo hwclock -r
 import adafruit_ds3231
@@ -175,9 +175,9 @@ try:
 		try:  #this currently only works sometimes -
 				# I'm not sure why. I found a 3rd party library for it 
 				# (with looping example code) but it does about the same
-			bus.write_byte(0x76, 0x1E)
+			#bus.write_byte(0x76, 0x1E) done in startup
 
-			time.sleep(0.01)
+			#time.sleep(0.01)
 
 			# Read 12 bytes of calibration data
 			# Read pressure sensitivity

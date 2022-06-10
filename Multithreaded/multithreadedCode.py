@@ -97,7 +97,6 @@ class thread (threading.Thread):
 
 def ms5803():
     #### ms5803 pressure
-    startMS58 = time.time()
     try:  #this currently only works sometimes -
             # I'm not sure why. I found a 3rd party library for it 
             # (with looping example code) but it does about the same
@@ -181,11 +180,10 @@ def ms5803():
         pressure = ((((D1 * SENS) / 2097152) - OFF) / 32768.0) / 100.0
         cTemp = TEMP / 100.0
         #fTemp = cTemp * 1.8 + 32
-
         return f"{pressure}, {cTemp}, " #{fTemp}, "
     except OSError:
         return "-, -, "
-    print("---> MS5803 Time: " + str(time.time() - startMS58))
+    
 
 def i2c():
     while True:
@@ -232,7 +230,9 @@ def i2c():
                 print("---> MPR Time: " + str(time.time() - startMPR))
 
                 #### ms5803
+                startMS58 = time.time()
                 dataIn += ms5803()
+                print("---> MS5803 Time: " + str(time.time() - startMS58))
 
                 #### RTC
                 startRTC = time.time()

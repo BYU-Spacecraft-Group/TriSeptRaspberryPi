@@ -23,6 +23,7 @@ time.sleep(0.5)
 	
 while True:
 
+    start = time.time()
 	# Read 12 bytes of calibration data
 	# Read pressure sensitivity
     data = bus.read_i2c_block_data(0x76, 0xA2, 2)
@@ -104,3 +105,4 @@ while True:
     print ("Pressure : %.2f mbar" %pressure)
     print ("Temperature in Celsius : %.2f C" %cTemp)
     print ("Temperature in Fahrenheit : %.2f F" %fTemp)
+    print ("Sense Time: " + str(time.time() - start))

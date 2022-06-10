@@ -196,7 +196,7 @@ def i2c():
             it = 0
             dataPipe = []
 
-            dataPipe.append("SystemTime, Temp, Hum, Pres, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, RTC, \n")
+            dataPipe.append("SystemTime, Temp, Hum, Pres, AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ, MPRPressure, MSPressure, MSTemp, RTC, \n")
 
 
         except Exception as e:

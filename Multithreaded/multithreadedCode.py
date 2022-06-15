@@ -189,7 +189,7 @@ def i2c():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime("%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime("%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
 
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -280,7 +280,7 @@ def spi():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime("%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime("%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
             print(ID)
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -351,7 +351,7 @@ def uart():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime("%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime("%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
             print(ID)
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -359,6 +359,8 @@ def uart():
             dataPipe = []
 
             dataPipe.append("SystemTime, TimeStamp, Latitude, Longitude, FixQuality, Satellites, Altitude, Knots, TrackAngle, HDilution, HGeoID, \n")
+
+            time.sleep(1)
 
         except Exception as e:
             print("exception in UART setup ", e)
@@ -433,6 +435,7 @@ def uart():
                     dataPipe.append(str(dataIn) + "\n")
                 else:
                     dataIn += "-, -, -, -, -, -, -, -, -, -, "
+                    time.sleep(0.1)
                 print("GPS Time: " + str(time.time() - startgps))
 
                 # --------------------------------------------------------------------

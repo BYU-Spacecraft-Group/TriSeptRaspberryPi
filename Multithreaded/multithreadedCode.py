@@ -206,6 +206,12 @@ def i2c():
     while True: # retry scheme 
         try:
             while True:
+
+                BMESKIP = 5
+                RTCSKIP = 10
+                MSSKIP = 5
+                MPRSKIP = 5
+
                 startCollect = time.time()
                 print(it)
                 #collecting data
@@ -217,7 +223,7 @@ def i2c():
                 print("---> System Time Log: " + str(time.time() - startSysTime)) 
 
                 #### bme280 ----- Currently takes around the longest time - ~0.03s
-                if it % 5 == 0:
+                if it % BMESKIP == 0:
                     startBME = time.time()
                     dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
                     print("---> BME Time: " + str(time.time() - startBME))
@@ -231,21 +237,33 @@ def i2c():
                 print("---> IMU Time: " + str(time.time() - startIMU))
 
                 #### mprls pressure
-                startMPR = time.time()
-                dataIn += f"{mpr.pressure}, "
-                print("---> MPR Time: " + str(time.time() - startMPR))
+                if it % MPRSKIP:
+                    startMPR = time.time()
+                    dataIn += f"{mpr.pressure}, "
+                    print("---> MPR Time: " + str(time.time() - startMPR))
+                else:
+                    dataIn += "-, "
+                    print("---> SKIPPED MPRLS")
 
                 #### ms5803
-                startMS58 = time.time()
-                dataIn += ms5803()
-                print("---> MS5803 Time: " + str(time.time() - startMS58))
+                if it % MSSKIP:
+                    startMS58 = time.time()
+                    dataIn += ms5803()
+                    print("---> MS5803 Time: " + str(time.time() - startMS58))
+                else:
+                    dataIn += "-, -, "
+                    print("---> SKIPPED MS5803")
 
                 #### RTC
-                startRTC = time.time()
-                t = rtc.datetime
+                if it % RTCSKIP == 0:
+                    startRTC = time.time()
+                    t = rtc.datetime
 
-                dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
-                print("---> RTC Time: " + str(time.time() - startRTC))
+                    dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
+                    print("---> RTC Time: " + str(time.time() - startRTC))
+                else:
+                    dataIn += "-, "
+                    print("---> SKIPPED RTC ")
 
                 dataPipe.append(str(dataIn) + "\n")
 

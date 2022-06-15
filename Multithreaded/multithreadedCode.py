@@ -237,7 +237,7 @@ def i2c():
                 print("---> IMU Time: " + str(time.time() - startIMU))
 
                 #### mprls pressure
-                if it % MPRSKIP:
+                if it % MPRSKIP == 0:
                     startMPR = time.time()
                     dataIn += f"{mpr.pressure}, "
                     print("---> MPR Time: " + str(time.time() - startMPR))
@@ -246,7 +246,7 @@ def i2c():
                     print("---> SKIPPED MPRLS")
 
                 #### ms5803
-                if it % MSSKIP:
+                if it % MSSKIP == 0:
                     startMS58 = time.time()
                     dataIn += ms5803()
                     print("---> MS5803 Time: " + str(time.time() - startMS58))

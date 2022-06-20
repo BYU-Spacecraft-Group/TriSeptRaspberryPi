@@ -45,7 +45,6 @@ while True:
         gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0") # turn it on
         #gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
         gps.send_command(b"PMTK220,500") # set update rate to 2Hz - according to example code this is the max
-        last_print = time.monotonic()
 
         # imu 
         from adafruit_icm20x import ICM20649, AccelRange, GyroRange
@@ -378,6 +377,7 @@ def uart():
             time.sleep(1)
 
             storageStart = time.time() # for regardless saving
+            last_print = time.monotonic() # for timing
 
         except Exception as e:
             print("exception in UART setup ", e)

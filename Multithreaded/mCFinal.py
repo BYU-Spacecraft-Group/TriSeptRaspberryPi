@@ -394,7 +394,7 @@ def uart():
                 #### gps
                 gps.update()
                 current = time.monotonic()
-                print("Current = " + str(current) + " last_print = " + last_print)
+                print(str(storageStart) + "Current = " + str(current) + " last_print = " + str(last_print))
                 if gps.has_fix and (current - last_print) >= 0.5:
 
                     #### SystemTime

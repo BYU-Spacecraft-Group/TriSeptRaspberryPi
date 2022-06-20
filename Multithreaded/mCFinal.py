@@ -187,7 +187,7 @@ def i2c():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime("%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime(".%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
 
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -295,7 +295,7 @@ def spi():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime("%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime(".%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
             #print(ID)
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -366,7 +366,7 @@ def uart():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime("%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime(".%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
             #print(ID)
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -377,12 +377,13 @@ def uart():
 
             time.sleep(1)
 
+            storageStart = time.time() # for regardless saving
+
         except Exception as e:
             print("exception in UART setup ", e)
             continue
         break
     while True:
-        storageStart = time.time() # for regardless saving
         try:
             while True:
                 startCollect = time.time()
@@ -391,10 +392,9 @@ def uart():
                 dataIn = "" #string to save as a line
 
                 #### gps
-                startgps = time.time()
                 gps.update()
                 current = time.monotonic()
-
+                print("Current = " + str(current) + " last_print = " + last_print)
                 if gps.has_fix and (current - last_print) >= 0.5:
 
                     #### SystemTime

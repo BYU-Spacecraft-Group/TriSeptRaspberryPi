@@ -205,7 +205,7 @@ def i2c():
         try:
             while True:
 
-                BMESKIP = 5
+                BMESKIP = 10
                 RTCSKIP = 10
                 MSSKIP = 5
                 MPRSKIP = 5

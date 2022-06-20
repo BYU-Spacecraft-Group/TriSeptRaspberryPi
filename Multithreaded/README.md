@@ -5,5 +5,7 @@
 
 #### Current Timings (based on reading counts from 10 second test file):
 I2C: ~30 Hz
+
 SPI: ~300 Hz
+
 UART: needs testing

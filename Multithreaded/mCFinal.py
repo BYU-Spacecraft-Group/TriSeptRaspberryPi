@@ -209,7 +209,7 @@ def i2c():
                 MSSKIP = 5
                 MPRSKIP = 5
 
-                startCollect = time.time()
+                #startCollect = time.time()
                 #print(it)
                 #collecting data
                 dataIn = "" #string to save as a line
@@ -263,7 +263,7 @@ def i2c():
 
                 dataPipe.append(str(dataIn) + "\n")
 
-                print("I2C Data collect time: " + str(time.time() - startCollect))
+                #print("I2C Data collect time: " + str(time.time() - startCollect))
 
                 #saving data
                 it += 1
@@ -310,7 +310,7 @@ def spi():
     while True:
         try:
             while True:
-                startCollect = time.time()
+                #startCollect = time.time()
                 #print(it)
                 #collecting data
                 dataIn = "" #string to save as a line
@@ -332,7 +332,7 @@ def spi():
 
                 dataPipe.append(str(dataIn) + "\n")
                 
-                print("SPI Data collect time: " + str(time.time() - startCollect))
+                #print("SPI Data collect time: " + str(time.time() - startCollect))
 
                 #saving data
                 it += 1
@@ -386,7 +386,7 @@ def uart():
     while True:
         try:
             while True:
-                startCollect = time.time()
+                #startCollect = time.time()
                 #print(it)
                 #collecting data
                 dataIn = "" #string to save as a line
@@ -394,7 +394,7 @@ def uart():
                 #### gps
                 gps.update()
                 current = time.monotonic()
-                print(str(storageStart) + "Current = " + str(current) + " last_print = " + str(last_print))
+                #print(str(storageStart) + "Current = " + str(current) + " last_print = " + str(last_print))
                 if gps.has_fix and (current - last_print) >= 0.5:
 
                     #### SystemTime
@@ -457,7 +457,7 @@ def uart():
             
                 
 
-                print("UART Data collect time: " + str(time.time() - startCollect))
+                #print("UART Data collect time: " + str(time.time() - startCollect))
 
                 #saving data
                 #it += 1

@@ -472,7 +472,7 @@ def uart():
                         file.close()
                         #clear stored values
                         dataPipe.clear()
-                            
+                        
                         #print(f"{it}: Write time: " + str(time.time() - start))
                     else:
                         start = time.time() # for timing

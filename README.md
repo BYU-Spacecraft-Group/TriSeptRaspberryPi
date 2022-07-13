@@ -1,4 +1,10 @@
-# TriSeptRaspberryPi
+# TriSept Raspberry Pi
+
+## Final code is in [BYUTriSept.py](/BYUTriSept.py). 
+
+<br>
+
+## Other Work and Folders
 Code for the TriSept launch for the Raspberry Pi team. The current first choice for use is [Multithreaded](/Multithreaded/).
 
 ## [Combined Code](/CombinedCode/)

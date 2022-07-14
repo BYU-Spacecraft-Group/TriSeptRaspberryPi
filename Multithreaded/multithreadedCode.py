@@ -329,7 +329,9 @@ def spi():
                 values = [0]*8
                 for i in range(8):
                     values[i] = round(mcp.read_adc(i)) # is there a reason to round here?
-                dataIn += str(values[0]) + ", "
+                for i in range(8):
+                    dataIn += str(values[i]) + ", "
+                #dataIn += str(values[0]) + ", "
                 print("ADC time: " + str(time.time() - startADC))
 
                 # --------------------------------------------------------------------

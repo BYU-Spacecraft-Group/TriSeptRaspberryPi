@@ -301,7 +301,7 @@ def spi():
             it = 0
             dataPipe = []
             
-            dataPipe.append("SystemTime, ADC 1 (Vibration), ADC 2, ADC 3, ADC 4, ADC 5, ADC 6, ADC 7, ADC 8, \n")
+            dataPipe.append("SystemTime, ADC 1 (Vibration), ADC 2 (Battery), \n")
 
         except Exception as e:
             print("exceptoin in spi setup ", e)

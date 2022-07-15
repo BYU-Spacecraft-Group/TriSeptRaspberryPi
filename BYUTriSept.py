@@ -46,7 +46,7 @@ while True:
         #gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
         gps.send_command(b"PMTK220,500") # set update rate to 2Hz - according to example code this is the max
 
-        # imu 
+        # imu
         from adafruit_icm20x import ICM20649, AccelRange, GyroRange
 
         ism = ICM20649(i2c, 0x69)
@@ -75,9 +75,6 @@ while True:
         import adafruit_ds3231
         rtc = adafruit_ds3231.DS3231(i2c)
 
-    except KeyboardInterrupt:
-        print("Keyboard interrupt in import")
-        break
     except Exception as e:
         print("Other exception in import", e)
         continue
@@ -178,9 +175,8 @@ def ms5803():
         cTemp = TEMP / 100.0
         #fTemp = cTemp * 1.8 + 32
         return f"{pressure}, {cTemp}, " #{fTemp}, "
-    except OSError:
-        return "-, -, "
-    
+    except:
+        return "-, -, "    
 
 def i2c():
     while True:
@@ -220,27 +216,36 @@ def i2c():
                 #print("---> System Time Log: " + str(time.time() - startSysTime)) 
 
                 #### bme280 ----- Currently takes around the longest time - ~0.03s
-                if it % BMESKIP == 0:
-                    #startBME = time.time()
-                    dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
-                    #print("---> BME Time: " + str(time.time() - startBME))
-                else:
+                try:
+                    if it % BMESKIP == 0:
+                        #startBME = time.time()
+                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
+                        #print("---> BME Time: " + str(time.time() - startBME))
+                    else:
+                        dataIn += "-, -, -, "
+                        #print("---> SKIPPED BME ")
+                except:
                     dataIn += "-, -, -, "
-                    #print("---> SKIPPED BME ")
 
                 #### imu 
-                #startIMU = time.time()
-                dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
-                #print("---> IMU Time: " + str(time.time() - startIMU))
+                try:
+                    #startIMU = time.time()
+                    dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
+                    #print("---> IMU Time: " + str(time.time() - startIMU))
+                except:
+                    dataIn += "-, -, -, -, -, -, "
 
                 #### mprls pressure
-                if it % MPRSKIP == 0:
-                    #startMPR = time.time()
-                    dataIn += f"{mpr.pressure}, "
-                    #print("---> MPR Time: " + str(time.time() - startMPR))
-                else:
+                try:
+                    if it % MPRSKIP == 0:
+                        #startMPR = time.time()
+                        dataIn += f"{mpr.pressure}, "
+                        #print("---> MPR Time: " + str(time.time() - startMPR))
+                    else:
+                        dataIn += "-, "
+                        #print("---> SKIPPED MPRLS")
+                except:
                     dataIn += "-, "
-                    #print("---> SKIPPED MPRLS")
 
                 #### ms5803
                 if it % MSSKIP == 0:
@@ -252,14 +257,17 @@ def i2c():
                     #print("---> SKIPPED MS5803")
 
                 #### RTC
-                if it % RTCSKIP == 0:
-                    #startRTC = time.time()
-                    t = rtc.datetime
-                    dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
-                    #print("---> RTC Time: " + str(time.time() - startRTC))
-                else:
+                try:
+                    if it % RTCSKIP == 0:
+                        #startRTC = time.time()
+                        t = rtc.datetime
+                        dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec},  "
+                        #print("---> RTC Time: " + str(time.time() - startRTC))
+                    else:
+                        dataIn += "-, "
+                        #print("---> SKIPPED RTC ")
+                except:
                     dataIn += "-, "
-                    #print("---> SKIPPED RTC ")
 
                 dataPipe.append(str(dataIn) + "\n")
 
@@ -278,12 +286,6 @@ def i2c():
                     dataPipe.clear()
                         
                     #print(f"---> {it}: Write time: " + str(time.time() - start))
-        except OSError:
-            print("-- OS ERROR on I2C --")
-            break
-        except KeyboardInterrupt:
-            print("-- KeyboardInterrupt on I2C --")
-            break
         except Exception as e:
             print("exception in i2c main loop ", e)
             continue
@@ -351,12 +353,6 @@ def spi():
                 else:
                     time.sleep(0.001)
 
-        except OSError:
-            print("-- OSError on SPI --")
-            break
-        except KeyboardInterrupt:
-            print("-- KeyboardInterrupt on SPI --")
-            break
         except Exception as e:
             print("exception in SPI main loop ", e)
             continue
@@ -485,12 +481,6 @@ def uart():
 
                         #print(f"{it}: (NO DATA) Write time: " + str(time.time() - start))
 
-        except OSError:
-            print("-- OSError in UART --")
-            break
-        except KeyboardInterrupt:
-            print("-- KeyboardInterrupt on UART --")
-            break
         except Exception as e:
             print("exception in UART main loop ", e)
             continue

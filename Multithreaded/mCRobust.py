@@ -177,6 +177,11 @@ def ms5803():
         return f"{pressure}, {cTemp}, " #{fTemp}, "
     except:
         return "-, -, "
+
+def testError():
+    if(random() < 0.75):
+        raise OSError
+    return "Test"
     
 
 def i2c():
@@ -220,7 +225,7 @@ def i2c():
                 try:
                     if it % BMESKIP == 0:
                         #startBME = time.time()
-                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
+                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, {testError()}, "
                         #print("---> BME Time: " + str(time.time() - startBME))
                     else:
                         dataIn += "-, -, -, "

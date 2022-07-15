@@ -236,7 +236,7 @@ def i2c():
                 #### imu 
                 try:
                     #startIMU = time.time()
-                    dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro) + testError()
+                    dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
                     #print("---> IMU Time: " + str(time.time() - startIMU))
                 except:
                     dataIn += "-, -, -, -, -, -, "
@@ -245,7 +245,7 @@ def i2c():
                 try:
                     if it % MPRSKIP == 0:
                         #startMPR = time.time()
-                        dataIn += f"{mpr.pressure}, "
+                        dataIn += f"{mpr.pressure}, {testError()} "
                         #print("---> MPR Time: " + str(time.time() - startMPR))
                     else:
                         dataIn += "-, "

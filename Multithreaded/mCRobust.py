@@ -46,7 +46,7 @@ while True:
         #gps.send_command(b"PMTK220,1000") # set update rate (1Hz)
         gps.send_command(b"PMTK220,500") # set update rate to 2Hz - according to example code this is the max
 
-        # imu 
+        # imu
         from adafruit_icm20x import ICM20649, AccelRange, GyroRange
 
         ism = ICM20649(i2c, 0x69)
@@ -245,7 +245,7 @@ def i2c():
                 try:
                     if it % MPRSKIP == 0:
                         #startMPR = time.time()
-                        dataIn += f"{mpr.pressure}, {testError()} "
+                        dataIn += f"{mpr.pressure}, "
                         #print("---> MPR Time: " + str(time.time() - startMPR))
                     else:
                         dataIn += "-, "
@@ -267,7 +267,7 @@ def i2c():
                     if it % RTCSKIP == 0:
                         #startRTC = time.time()
                         t = rtc.datetime
-                        dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec}, "
+                        dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec} {testError()},  "
                         #print("---> RTC Time: " + str(time.time() - startRTC))
                     else:
                         dataIn += "-, "

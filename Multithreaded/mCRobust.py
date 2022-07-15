@@ -221,7 +221,6 @@ def i2c():
                     if it % BMESKIP == 0:
                         #startBME = time.time()
                         dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
-                        raise OSError
                         #print("---> BME Time: " + str(time.time() - startBME))
                     else:
                         dataIn += "-, -, -, "

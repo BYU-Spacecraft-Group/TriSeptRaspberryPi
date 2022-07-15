@@ -225,7 +225,7 @@ def i2c():
                 try:
                     if it % BMESKIP == 0:
                         #startBME = time.time()
-                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, {testError()}, "
+                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, {testError()} "
                         #print("---> BME Time: " + str(time.time() - startBME))
                     else:
                         dataIn += "-, -, -, "

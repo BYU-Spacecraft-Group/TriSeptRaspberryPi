@@ -176,13 +176,7 @@ def ms5803():
         #fTemp = cTemp * 1.8 + 32
         return f"{pressure}, {cTemp}, " #{fTemp}, "
     except:
-        return "-, -, "
-
-def testError():
-    if(random() < 0.75):
-        raise OSError
-    return "Test"
-    
+        return "-, -, "    
 
 def i2c():
     while True:
@@ -267,7 +261,7 @@ def i2c():
                     if it % RTCSKIP == 0:
                         #startRTC = time.time()
                         t = rtc.datetime
-                        dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec} {testError()},  "
+                        dataIn += f"{t.tm_hour}:{t.tm_min}:{t.tm_sec},  "
                         #print("---> RTC Time: " + str(time.time() - startRTC))
                     else:
                         dataIn += "-, "

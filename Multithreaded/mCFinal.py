@@ -450,7 +450,7 @@ def uart():
                     it += 1
                     dataPipe.append(str(dataIn) + "\n")
                 else:
-                    dataIn += "-, -, -, -, -, -, -, -, -, -, "
+                    #dataIn += "-, -, -, -, -, -, -, -, -, -, "
                     time.sleep(0.1)
                 #print("GPS Time: " + str(time.time() - startgps))
 
@@ -478,7 +478,7 @@ def uart():
                     else:
                         start = time.time() # for timing
                         file = open(f"ResultsUART{ID}.csv", 'a')
-                        file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -, \n")
+                        #file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -, \n")
                         file.flush()
                         os.fsync(file.fileno())
                         file.close()

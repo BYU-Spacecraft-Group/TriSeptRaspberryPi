@@ -225,7 +225,7 @@ def i2c():
                 try:
                     if it % BMESKIP == 0:
                         #startBME = time.time()
-                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, {testError()} "
+                        dataIn += f"{str(bme280.temperature)}, {bme280.relative_humidity}, {bme280.pressure}, "
                         #print("---> BME Time: " + str(time.time() - startBME))
                     else:
                         dataIn += "-, -, -, "
@@ -236,7 +236,7 @@ def i2c():
                 #### imu 
                 try:
                     #startIMU = time.time()
-                    dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro)
+                    dataIn += "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, " % (ism.acceleration + ism.gyro) + testError()
                     #print("---> IMU Time: " + str(time.time() - startIMU))
                 except:
                     dataIn += "-, -, -, -, -, -, "

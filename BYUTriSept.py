@@ -301,7 +301,7 @@ def spi():
             it = 0
             dataPipe = []
             
-            dataPipe.append("SystemTime, ADC 1 (Vibration), ADC 2, ADC 3, ADC 4, ADC 5, ADC 6, ADC 7, ADC 8, \n")
+            dataPipe.append("SystemTime, ADC 1 (Vibration), ADC 2 (Battery), \n")
 
         except Exception as e:
             print("exceptoin in spi setup ", e)
@@ -325,7 +325,7 @@ def spi():
                 values = [0]*8
                 for i in range(8):
                     values[i] = round(mcp.read_adc(i)) # is there a reason to round here?
-                for i in range(8):
+                for i in range(2):
                     dataIn += str(values[i]) + ", "
                 #print("ADC time: " + str(time.time() - startADC))
 
@@ -450,7 +450,7 @@ def uart():
                     it += 1
                     dataPipe.append(str(dataIn) + "\n")
                 else:
-                    dataIn += "-, -, -, -, -, -, -, -, -, -, "
+                    #dataIn += "-, -, -, -, -, -, -, -, -, -, "
                     time.sleep(0.1)
                 #print("GPS Time: " + str(time.time() - startgps))
 
@@ -478,7 +478,7 @@ def uart():
                     else:
                         start = time.time() # for timing
                         file = open(f"ResultsUART{ID}.csv", 'a')
-                        file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -, \n")
+                        #file.write(f"{time.time()}, -, -, -, -, -, -, -, -, -, -, \n")
                         file.flush()
                         os.fsync(file.fileno())
                         file.close()

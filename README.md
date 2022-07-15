@@ -5,7 +5,7 @@
 <br>
 
 ## Other Work and Folders
-Code for the TriSept launch for the Raspberry Pi team. The current first choice for use is [Multithreaded](/Multithreaded/).
+Code for the TriSept launch for the Raspberry Pi team. Final code ([BYUTriSept.py](/BYUTriSept.py)) uses the code from [Multithreaded](/Multithreaded/).
 
 ## [Combined Code](/CombinedCode/)
 Drafts of final code, combining sensor reading code into a single file and saving it with SafeStorageScheme.

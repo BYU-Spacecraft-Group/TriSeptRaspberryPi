@@ -184,7 +184,7 @@ def i2c():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime(".%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime(".%m.%d.%H%M%S-", time.localtime()) + str(int(random() * 1000000))
 
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -298,7 +298,7 @@ def spi():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime(".%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime(".%m.%d.%H%M%S-", time.localtime()) + str(int(random() * 1000000))
             #print(ID)
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 
@@ -364,7 +364,7 @@ def uart():
     while True:
         try:
             #setup file ID using system clock and random()
-            ID = time.strftime(".%m.%d.%H%M%S", time.localtime()) + str(int(random() * 100))
+            ID = time.strftime(".%m.%d.%H%M%S-", time.localtime()) + str(int(random() * 1000000))
             #print(ID)
             STORING_GAP = 10 # how many cycles to wait until you take the time to save
 

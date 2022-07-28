@@ -1,7 +1,8 @@
 #!/user/bin/python
 
 ## imports
-while True:
+i = 0
+while i < 100:
     try:
         import threading
         import time
@@ -76,7 +77,8 @@ while True:
         rtc = adafruit_ds3231.DS3231(i2c)
 
     except Exception as e:
-        print("Other exception in import", e)
+        print(f"Other exception in import -- BOOT: {i}", e)
+        i += 1
         continue
     break
 

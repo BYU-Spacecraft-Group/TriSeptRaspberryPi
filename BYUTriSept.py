@@ -77,7 +77,7 @@ while itter < 100:
         rtc = adafruit_ds3231.DS3231(i2c)
 
     except Exception as e:
-        print(f"Other exception in import -- BOOT: {i}", e)
+        print(f"Other exception in import -- TRY: {itter}", e)
         itter += 1
         continue
     break

@@ -1,8 +1,8 @@
 #!/user/bin/python
 
 ## imports
-i = 0
-while i < 100:
+itter = 0
+while itter < 100:
     try:
         import threading
         import time
@@ -78,7 +78,7 @@ while i < 100:
 
     except Exception as e:
         print(f"Other exception in import -- BOOT: {i}", e)
-        i += 1
+        itter += 1
         continue
     break
 
